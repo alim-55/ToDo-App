@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDO App</title>
+    <title>ToDo App</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,32 +17,35 @@
 <body>
     <div id="preloader"></div>
     <div class="container">
-        <h1 class="title">ToDO App</h1>
+        <h1 class="title">ToDo App</h1>
         <div class="msg">
             <h2>What's on your todo list? <img src="images/icon.png" alt=""></h4>
                 <div class="input-todo">
-                    <input type="text" name="content" id="content" placeholder="Enter your todo">
-                    <button onclick="addTask()">Add</button>
+                    <form id="todoform">
+                        <input type="text" name="content" id="content" placeholder="Enter your todo">
+                        <button type="submit">Add</button>
+                    </form>
                 </div>
-                <ul id="list-container">
-                    <!-- <li class="checked">Task 1</li>
-                    <li>Task 2</li>
-                    <li>Task 3</li> -->
-                </ul>
+                <div class="filters">
+                    <div class="filter" data-filter="completed">Complete</div>
+                    <div class="filter" data-filter="pending">Incomplete</div>
+                    <div class="delete-all">Delete All</div>
+                </div>
+                <div class="todos-container">
+                    <ul id="list-container"></ul>
+                </div>
+                
         </div>
     </div>
+
     <div id="toastBox"></div>
 
-
-
     <script src="script.js"></script>
-
-    
     <script>
         var loader = document.getElementById("preloader");
         window.addEventListener("load", function () {
             loader.style.display = "none";
-        })
+        });
     </script>
 </body>
 

@@ -1,50 +1,55 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    height: 100vh;
+
+body {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background: url(images/bg.jpg) no-repeat;
     background-position: center;
     background-size: cover;
-
+    padding: 20px;
+    overflow: auto;
+    /* Allows the body to scroll if content overflows */
 }
-.container{
-    width: 400px;
-    height: auto;
-    min-height: 400px;
-    padding: 30px;
-    background-color: transparent;
+
+.container {
+    width: 90%;
+    max-width: 450px;
+    min-height: 350px;
+    padding: 40px 30px 40px;
+    background: transparent;
+    /* Adjust background color for better readability */
     border: 2px solid #1762b7a1;
     border-radius: 10px;
     backdrop-filter: blur(15px);
-    width: 100%;
-    max-width: 540px;
-    padding: 40 px 30px 70px;
-    margin: 20px auto 20px;
-    border-radius: 10px;
+    margin: 20px auto;
 }
-h1{
-    color: aliceblue;
+
+h1 {
+    color: #fff;
     text-align: center;
     margin-bottom: 30px;
 }
-.msg h2{
-    color: aliceblue;
+
+.msg h2 {
+    color: #fff;
     display: flex;
     align-items: center;
     margin-bottom: 20px;
 }
-.msg h2 img{
+
+.msg h2 img {
     width: 30px;
     margin-left: 15px;
 }
-.input-todo{
-    display: flex;  
+
+.input-todo {
+    display: flex;
     align-items: center;
     justify-content: space-between;
     background: #edeef0;
@@ -52,53 +57,84 @@ h1{
     padding-left: 20px;
     margin-bottom: 25px;
 }
-input{
+
+#todoform {
+    display: flex;
+    width: 100%;
+}
+
+input {
     flex: 1;
     border: none;
     outline: none;
     background: transparent;
     padding: 10px;
 }
-button{
+
+button {
     border: none;
     outline: none;
     padding: 16px 30px;
-    background: #ff5945;
+    background: #1762b7;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
     border-radius: 40px;
+    margin-left: 10px; /* Add margin to separate the button from the input */
 }
-ul li{
-    position: relative;
+
+ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    position: relative;
     font-size: 17px;
     padding: 12px 8px 12px 50px;
     user-select: none;
     cursor: pointer;
+    border: 1px solid #ccc;
+    /* Add a border */
+    margin-bottom: 10px;
+    /* Separate tasks visually */
+    border-radius: 5px;
+    /* Rounded corners */
+    background-color: #f9f9f9;
+    /* Light background color */
+    display: flex;
+    align-items: center;
 }
-ul li::before{
+
+ul li::before {
     content: '';
     position: absolute;
-    height: 28px;
-    width: 28px;
+    height: 20px;
+    width: 20px;
+    border: 2px solid #1762b7;
     border-radius: 50%;
-    background-image: url(images/unchecked.png);
-    background-size: cover;
-    background-position: center;
-    top: 12px;
-    left: 8px;
+    left: 15px;
+    background-color: #fff;
 }
-ul li.checked{
+
+ul li.checked::before {
+    content: '✓';
+    color: #fff;
+    background-color: #1762b7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul li.checked {
     color: #555;
     text-decoration: line-through;
 }
-ul li.checked::before{
-    background-image: url(images/checked.png);
-}
-ul li span{
+
+ul li span {
     position: absolute;
-    right: 0;
+    right: 0px;
     top: 5px;
     width: 60px;
     height: 40px;
@@ -108,13 +144,50 @@ ul li span{
     text-align: center;
     
 }
-ul li span:hover{
-    background: rgb(188, 30, 30);
-    border-radius: 10px;
+ul li span.delete {
+    right: 0;
+    color: #555;
 }
 
-#preloader{
-    background: rgb(106,158,234) url(images/load.gif) no-repeat center center;
+ul li span:hover {
+    color: #ff5945;
+}
+
+ul li span.edit {
+    right: 60px;
+    /* Adjust this value to position the edit button properly */
+    color: #555;
+}
+
+ul li span.edit:hover {
+    color: #1762b7;
+}
+
+.todos-container {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.todos-container::-webkit-scrollbar-track {
+    background: rgb(247, 247, 247);
+    border-radius: 20px
+}
+
+.todos-container::-webkit-scrollbar {
+    width: 0;
+}
+
+.todos-container:hover::-webkit-scrollbar {
+    width: 7px;
+}
+
+.todos-container::-webkit-scrollbar-thumb {
+    background: #d5d5d5;
+    border-radius: 20px;
+}
+
+#preloader {
+    background: rgb(106, 158, 234) url(images/load.gif) no-repeat center center;
     background-size: 20%;
     height: 100vh;
     width: 100%;
@@ -122,8 +195,42 @@ ul li span:hover{
     z-index: 100;
 }
 
-#toastBox{
-    position: absolute;
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.filter {
+    color: #eee;
+    padding: 5px 15px;
+    border-radius: 100px;
+    border: 2px solid #1762b7;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.filter.active,
+.filter:hover {
+    background-color: #1762b7;
+}
+
+.delete-all {
+    display: flex;
+    color: #eee;
+    padding: 7px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 100px;
+    border: 2px solid #1762b7;
+}
+
+.delete-all:hover {
+    background-color: #ff5945;
+}
+
+#toastBox {
+    position: fixed;
     bottom: 30px;
     right: 30px;
     display: flex;
@@ -132,9 +239,10 @@ ul li span:hover{
     overflow: hidden;
     padding: 20px;
 }
-.toast{
-    width: 400px;
-    height: 80px;
+
+.toast {
+    width: 250px;
+    height: 60px;
     background: #fff;
     font-weight: 500;
     margin: 15px 0;
@@ -144,22 +252,26 @@ ul li span:hover{
     position: relative;
     border-top-left-radius: 15px;
 }
-.toast i{
+
+.toast i {
     margin: 0 20px;
-    font-size: 35px;
+    font-size: 25px;
     color: green;
 }
 
-.toast.error i{
+.toast.error i {
     color: red;
 }
-.toast.error::after{
+
+.toast.error::after {
     background: red;
 }
-.toast.sucess i{
+
+.toast.sucess i {
     color: green;
 }
-.toast::after{
+
+.toast::after {
     content: '';
     position: absolute;
     left: 0;
@@ -169,8 +281,9 @@ ul li span:hover{
     background: green;
     animation: anime 2s linear forwards;
 }
-@keyframes anime{
-    100%{
+
+@keyframes anime {
+    100% {
         width: 0;
     }
 }
