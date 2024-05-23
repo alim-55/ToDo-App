@@ -14,7 +14,6 @@ body {
     background-size: cover;
     padding: 20px;
     overflow: auto;
-    /* Allows the body to scroll if content overflows */
 }
 
 .container {
@@ -23,7 +22,6 @@ body {
     min-height: 350px;
     padding: 40px 30px 40px;
     background: transparent;
-    /* Adjust background color for better readability */
     border: 2px solid #1762b7a1;
     border-radius: 10px;
     backdrop-filter: blur(15px);
@@ -34,6 +32,7 @@ h1 {
     color: #fff;
     text-align: center;
     margin-bottom: 30px;
+    font-weight: bolder;
 }
 
 .msg h2 {
@@ -41,6 +40,7 @@ h1 {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    font-weight: bolder;
 }
 
 .msg h2 img {
@@ -80,7 +80,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     border-radius: 40px;
-    margin-left: 10px; /* Add margin to separate the button from the input */
+    margin-left: 10px;
 }
 
 ul {
@@ -96,13 +96,9 @@ ul li {
     user-select: none;
     cursor: pointer;
     border: 1px solid #ccc;
-    /* Add a border */
     margin-bottom: 10px;
-    /* Separate tasks visually */
     border-radius: 5px;
-    /* Rounded corners */
     background-color: #f9f9f9;
-    /* Light background color */
     display: flex;
     align-items: center;
 }
@@ -128,7 +124,7 @@ ul li.checked::before {
 }
 
 ul li.checked {
-    color: #555;
+    color: rgba(0, 0, 0, 1);
     text-decoration: line-through;
 }
 
@@ -142,8 +138,9 @@ ul li span {
     color: #555;
     line-height: 40px;
     text-align: center;
-    
+
 }
+
 ul li span.delete {
     right: 0;
     color: #555;
@@ -154,8 +151,7 @@ ul li span:hover {
 }
 
 ul li span.edit {
-    right: 60px;
-    /* Adjust this value to position the edit button properly */
+    right: 50px;
     color: #555;
 }
 
@@ -201,18 +197,10 @@ ul li span.edit:hover {
     margin-bottom: 25px;
 }
 
-.filter {
-    color: #eee;
-    padding: 5px 15px;
-    border-radius: 100px;
-    border: 2px solid #1762b7;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-.filter.active,
-.filter:hover {
-    background-color: #1762b7;
+.delete-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .delete-all {
@@ -226,7 +214,7 @@ ul li span.edit:hover {
 }
 
 .delete-all:hover {
-    background-color: #ff5945;
+    background-color: red;
 }
 
 #toastBox {
@@ -287,3 +275,24 @@ ul li span.edit:hover {
         width: 0;
     }
 }
+
+/* Media Queries for responsiveness */
+
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    ul li {
+        padding: 12px 8px 12px 30px;
+    }
+
+    ul li span {
+        width: 40px;
+    }
+
+    ul li span.edit {
+        right: 40px;
+    }
+}
+

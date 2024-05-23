@@ -1,9 +1,11 @@
 const TODO_ITEM_CLASS = 'todo-item';
-const DELETE_BTN_CLASS = 'delete';
-const EDIT_BTN_CLASS = 'edit';
-const CHECKED_CLASS = 'checked';
-const SUCCESS_MSG = '<i class="fa-solid fa-circle-check"></i>Task added successfully';
-const ERROR_MSG = '<i class="fa-solid fa-circle-xmark"></i>Empty Task';
+const delete_btn = 'delete';
+const edit_btn = 'edit';
+const checked_class = 'checked';
+const success_msg = '<i class="fa-solid fa-circle-check"></i>Task added successfully';
+const error_msg = '<i class="fa-solid fa-circle-xmark"></i>Empty Task';
+const delete_all_msg = '<i class="fa-solid fa-trash"></i>All task deleted';
+const task_delete = '<i class="fa-solid fa-trash"></i>Task Deleted';
 
 const form = document.getElementById("todoform");
 const todoInput = document.getElementById("content");
@@ -26,14 +28,14 @@ function createTodoItem(todo) {
     li.setAttribute('data-id', todo.id); // Add unique identifier
 
     if (todo.checked) {
-        li.classList.add(CHECKED_CLASS);
+        li.classList.add(checked_class);
     }
 
-    const deleteBtn = createButton(DELETE_BTN_CLASS, '<i class="fas fa-trash-alt"></i>', () => {
+    const deleteBtn = createButton(delete_btn, '<i class="fas fa-trash-alt"></i>', () => {
         deleteTodo(todo.id); // Use unique identifier for deletion
     });
 
-    const editBtn = createButton(EDIT_BTN_CLASS, '<i class="fas fa-edit"></i>', (event) => {
+    const editBtn = createButton(edit_btn, '<i class="fas fa-edit"></i>', (event) => {
         event.stopPropagation();
         editTodo(todo.id); // Use unique identifier for editing
     });
@@ -75,19 +77,20 @@ function saveTodo() {
     let toast;
 
     if (todoValue === '') {
-        toast = createToast(ERROR_MSG, 'error');
+        toast = createToast(error_msg, 'error');
     } else {
-        toast = createToast(SUCCESS_MSG, 'success');
+        toast = createToast(success_msg, 'success');
         const newTodo = { id: Date.now(), value: todoValue, checked: false }; // Generate unique identifier
         todos.push(newTodo);
         todoInput.value = '';
         saveToLocalStorage();
     }
 
+    // Append the toast and set a timeout to remove it
     toastBox.appendChild(toast);
     setTimeout(() => {
         toast.remove();
-    }, 2000);
+    }, 2000); // Remove after 2 seconds
 }
 
 function createToast(message, className) {
@@ -109,20 +112,43 @@ function saveToLocalStorage() {
 }
 
 function deleteTodo(id) {
+    let toast;
+    toast = createToast(task_delete, 'error');
     todos = todos.filter(todo => todo.id !== id); // Filter out the todo with the specified id
     saveToLocalStorage();
     renderTodos();
+    // Append the toast and set a timeout to remove it
+    toastBox.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 2000); // Remove after 2 seconds
 }
 
 function editTodo(id) {
-    const todoToUpdate = todos.find(todo => todo.id === id); // Find the todo with the specified id
-    if (todoToUpdate) {
-        const newTodoValue = prompt("Edit your task", todoToUpdate.value);
-        if (newTodoValue !== null && newTodoValue.trim() !== "") {
-            todoToUpdate.value = newTodoValue.trim();
+    const todoToUpdate = todos.find(todo => todo.id === id);
+    const li = document.querySelector(`li[data-id="${id}"]`);
+
+    if (todoToUpdate && li) {
+        const input = document.createElement('input');
+        input.value = todoToUpdate.value;
+
+        input.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                todoToUpdate.value = input.value.trim();
+                saveToLocalStorage();
+                renderTodos();
+            }
+        });
+
+        input.addEventListener('focusout', function () {
+            todoToUpdate.value = input.value.trim();
             saveToLocalStorage();
             renderTodos();
-        }
+        });
+
+        li.textContent = ''; 
+        li.appendChild(input);
+        input.focus(); // Focus on the input field
     }
 }
 
@@ -136,7 +162,21 @@ function toggleCheck(id) {
 }
 
 function deleteAllTodos() {
+    let toast;
+    toast = createToast(delete_all_msg, 'error');
+
     todos = [];
     saveToLocalStorage();
     renderTodos();
+
+    toastBox.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 2000); // Remove after 2 seconds
 }
+
+
+
+
+
+
