@@ -30,3 +30,10 @@ To run this app locally, follow these steps:
 You can explore a live demo of this app hosted on Vercel [here](https://to-do-app-steel-nu.vercel.app/).
 
 Feel free to explore the app and let us know what you think! Your feedback is much appreciated. If you have any suggestions for improvements or encounter any issues, don't hesitate to reach out. Enjoy staying organized with the To-Do app!
+
+## Connect with Me
+
+You can connect with me on social media:
+
+- [![Facebook](https://img.icons8.com/color/48/000000/facebook--v1.png)](https://www.facebook.com/alimbin.yeasin/)
+- [![LinkedIn](https://img.icons8.com/color/48/000000/linkedin.png)](https://www.linkedin.com/in/alim-bin-yeasin/)
