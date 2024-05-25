@@ -126,6 +126,7 @@ ul li.checked::before {
 ul li.checked {
     color: rgba(0, 0, 0, 1);
     text-decoration: line-through;
+    background-color: #d5d5d5;
 }
 
 ul li span {

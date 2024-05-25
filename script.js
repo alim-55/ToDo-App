@@ -3,6 +3,7 @@ const delete_btn = 'delete';
 const edit_btn = 'edit';
 const checked_class = 'checked';
 const success_msg = '<i class="fa-solid fa-circle-check"></i>Task added successfully';
+const task_done = '<i class="fa-solid fa-circle-check"></i>Task Completed';
 const error_msg = '<i class="fa-solid fa-circle-xmark"></i>Empty Task';
 const delete_all_msg = '<i class="fa-solid fa-trash"></i>All task deleted';
 const task_delete = '<i class="fa-solid fa-trash"></i>Task Deleted';
@@ -59,9 +60,12 @@ function createButton(className, innerHTML, onClick) {
 }
 
 function renderTodos() {
-    todoListElement.innerHTML = ''; // Clear the current list
+    todoListElement.innerHTML = ''; 
 
-    todos.forEach(todo => {
+  
+    const sortedTodos = [...todos].sort((a, b) => a.checked - b.checked);
+
+    sortedTodos.forEach(todo => {
         todoListElement.appendChild(createTodoItem(todo));
     });
 }
@@ -85,12 +89,11 @@ function saveTodo() {
         todoInput.value = '';
         saveToLocalStorage();
     }
-
-    // Append the toast and set a timeout to remove it
+    
     toastBox.appendChild(toast);
     setTimeout(() => {
         toast.remove();
-    }, 2000); // Remove after 2 seconds
+    }, 2000); 
 }
 
 function createToast(message, className) {
@@ -117,11 +120,11 @@ function deleteTodo(id) {
     todos = todos.filter(todo => todo.id !== id); // Filter out the todo with the specified id
     saveToLocalStorage();
     renderTodos();
-    // Append the toast and set a timeout to remove it
+  
     toastBox.appendChild(toast);
     setTimeout(() => {
         toast.remove();
-    }, 2000); // Remove after 2 seconds
+    }, 2000); 
 }
 
 function editTodo(id) {
@@ -146,18 +149,25 @@ function editTodo(id) {
             renderTodos();
         });
 
-        li.textContent = ''; 
+        li.textContent = '';
         li.appendChild(input);
-        input.focus(); // Focus on the input field
+        input.focus(); 
     }
 }
 
 function toggleCheck(id) {
+    let toast;
+    toast = createToast(task_done, 'success');
     const todoToUpdate = todos.find(todo => todo.id === id); // Find the todo with the specified id
     if (todoToUpdate) {
         todoToUpdate.checked = !todoToUpdate.checked;
         saveToLocalStorage();
         renderTodos();
+
+        toastBox.appendChild(toast);
+        setTimeout(() => {
+            toast.remove();
+        }, 2000); 
     }
 }
 
@@ -172,11 +182,5 @@ function deleteAllTodos() {
     toastBox.appendChild(toast);
     setTimeout(() => {
         toast.remove();
-    }, 2000); // Remove after 2 seconds
+    }, 2000); 
 }
-
-
-
-
-
-
