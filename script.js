@@ -167,7 +167,7 @@ function toggleCheck(id) {
         toastBox.appendChild(toast);
         setTimeout(() => {
             toast.remove();
-        }, 2000); 
+        }, 2000); //exit after 2sec
     }
 }
 
